@@ -1,3 +1,5 @@
+// Average and worst scenerio, O(n^2) time | O(1) space - n is the length of the input
+// Best: If input is sorted -  O(n) time | O(1) space
 function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
     let j = i;
