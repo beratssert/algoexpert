@@ -3,22 +3,21 @@ function mergeOverlappingIntervals(array) {
   const intervals = [];
   array.sort((a, b) => a[0] - b[0]);
 
-  let firstInterval = array[0][0];
-  let secondInterval = array[0][1];
-  for (let i = 0; i < array.length - 1; i++) {
-    let nextFirst = array[i + 1][0];
-    let nextSecond = array[i + 1][1];
+  let currentInterval = array[0];
+  intervals.push(currentInterval);
 
-    if (nextFirst <= secondInterval) {
-      secondInterval = Math.max(secondInterval, nextSecond);
+  for (const interval of array) {
+    [_, currentEnd] = currentInterval;
+    [nextFirst, secondFirst] = interval;
+
+    if (nextFirst <= currentEnd) {
+      currentInterval[1] = Math.max(secondFirst, currentEnd);
     } else {
-      intervals.push([firstInterval, secondInterval]);
-      firstInterval = nextFirst;
-      secondInterval = nextSecond;
+      currentInterval = interval;
+      intervals.push(currentInterval);
     }
   }
 
-  intervals.push([firstInterval, secondInterval]);
   return intervals;
 }
 
